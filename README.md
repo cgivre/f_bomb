@@ -1,4 +1,6 @@
 [![Pylint](https://github.com/cgivre/f_bomb/actions/workflows/pylint.yml/badge.svg)](https://github.com/cgivre/f_bomb/actions/workflows/pylint.yml)
+[![Tests](https://github.com/cgivre/f_bomb/actions/workflows/tests.yml/badge.svg)](https://github.com/cgivre/f_bomb/actions/workflows/tests.yml)
+
 # F Bomb
 If you've ever need to drop an F bomb in your code, we've got you covered. Drop a blunt, multilingual "F-bomb" in your Python code.
 
