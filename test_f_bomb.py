@@ -2,10 +2,9 @@ import unittest
 from f_bomb import F_Bomb
 
 
-class TestF_Bomb(unittest.TestCase):
+class test_f_bomb(unittest.TestCase):
     def test_f_bomb(self):
         the_bomb = F_Bomb()
-        print(the_bomb)
         self.assertEqual(str(the_bomb), "FUCK!")
 
     def test_language(self):

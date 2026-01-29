@@ -55,14 +55,37 @@ class F_Bomb:
         self.language = language.lower()
 
     def drop(self, language: str = None):
+        """
+        Drops a formatted string based on the specified language. If no language is provided, uses
+        the default language assigned to the instance.
+
+        :param language: Optional; a string representing the language to drop. If provided, the value
+            will be converted to lowercase before use.
+        :return: A formatted uppercase string for the specified or default language.
+        :rtype: str
+        """
         if language is not None:
             language = language.lower()
             return f"{FUCK[language].upper()}!"
-        else:
-            return f"{FUCK[self.language].upper()}!"
 
-    def carpet_bomb(self, language: str = None, amount: int = 100):
-        return self.drop(language) + "\n" * 1000000
+        return f"{FUCK[self.language].upper()}!"
+
+    def carpet_bomb(self, number: int = 100, language: str = None):
+        """
+        Executes a repetitive concatenation of the results from the `drop` method
+        based on the specified `number`, separated by newline characters. This
+        method provides a way to produce a bulk output with a customizable count
+        and optional language setting.
+
+        :param number: The number of newline-separated repetitions for the output. Defaults to 100.
+        :type number: int
+        :param language: An optional parameter to specify the language for the `drop` method. Defaults to None.
+        :type language: str
+        :return: A concatenated string containing the results of the `drop` method, repeated `number` times,
+            with newline characters separating each repetition.
+        :rtype: str
+        """
+        return self.drop(language) + "\n" * number
 
 
     def __str__(self):
@@ -70,5 +93,3 @@ class F_Bomb:
 
     def __repr__(self):
         return self.__str__()
-
-
