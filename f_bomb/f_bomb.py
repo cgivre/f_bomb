@@ -1,5 +1,9 @@
 
 
+import functools
+import random
+import sys
+
 FUCK = {
     "en": "fuck",            # The strongest common English profanity, sexual in origin and broadly offensive.
     "es": "coño",            # A vulgar sexual term widely used as a harsh expletive across Spanish dialects.
@@ -85,7 +89,55 @@ class F_Bomb:
             with newline characters separating each repetition.
         :rtype: str
         """
-        return self.drop(language) + "\n" * number
+        return "\n".join([self.drop(language)] * number)
+
+    def defuse(self, language: str = None):
+        """Returns a work-safe drop with the middle letters starred out, e.g. ``F**K!``."""
+        word = self.drop(language)[:-1]
+        if len(word) <= 2:
+            return f"{word[0]}*!"
+        return f"{word[0]}{'*' * (len(word) - 2)}{word[-1]}!"
+
+    def dud(self):
+        """The bomb fizzled."""
+        return "fudge."
+
+    def countdown(self, seconds: int = 3, language: str = None):
+        """Counts down from ``seconds`` and then drops, e.g. ``3... 2... 1... FUCK!``."""
+        ticks = [f"{i}..." for i in range(seconds, 0, -1)]
+        return " ".join(ticks + [self.drop(language)])
+
+    def grawlix(self, length: int = 5):
+        """Returns cartoon-style swearing, e.g. ``#@$%&!``."""
+        return "".join(random.choices("#@$%&*", k=length)) + "!"
+
+    def roulette(self):
+        """Drops in a random language."""
+        return self.drop(random.choice(list(FUCK)))
+
+    def cluster_bomb(self, number: int = 5):
+        """Drops in ``number`` different random languages, one per line."""
+        return "\n".join(self.drop(lang) for lang in random.sample(list(FUCK), number))
+
+    def nuke(self):
+        """Drops in every supported language, one per line."""
+        return "\n".join(self.drop(lang) for lang in FUCK)
+
+    @staticmethod
+    def on_error(func):
+        """
+        Decorator that drops an F bomb to stderr whenever the wrapped function raises,
+        then re-raises the exception.
+        """
+        # ponytail: always English; add a language argument if anyone asks
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            try:
+                return func(*args, **kwargs)
+            except Exception:
+                print(F_Bomb().drop(), file=sys.stderr)
+                raise
+        return wrapper
 
 
     def __str__(self):
