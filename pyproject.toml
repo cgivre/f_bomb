@@ -29,4 +29,4 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/seatgeek/thefuzz"
+Homepage = "https://github.com/cgivre/f_bomb"
